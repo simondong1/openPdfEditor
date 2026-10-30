@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a reproducible parsing, rendering, editing, or packaging problem.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Please use a synthetic or fully redacted PDF. Do not upload private documents."
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include the exact steps and the expected result.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Environment
+      description: Windows version, release version or commit, and Python version if running from source.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Give the smallest safe PDF or describe how to create a synthetic one.
+    validations:
+      required: true
