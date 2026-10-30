@@ -61,6 +61,9 @@ def make_sample_pdf(destination: Path) -> None:
 
 
 def capture(app: pdf_explorer.PdfExplorer, name: str) -> None:
+    app.deiconify()
+    app.lift()
+    app.attributes("-topmost", True)
     app.update_idletasks()
     app.update()
     time.sleep(0.25)
@@ -69,6 +72,7 @@ def capture(app: pdf_explorer.PdfExplorer, name: str) -> None:
     width = app.winfo_width()
     height = app.winfo_height()
     ImageGrab.grab(bbox=(x, y, x + width, y + height)).save(IMAGE_DIR / name, optimize=True)
+    app.attributes("-topmost", False)
 
 
 def main() -> None:
@@ -96,12 +100,18 @@ def main() -> None:
         app.save_button.state(["disabled"])
 
         text_operation = next(index for index, op in enumerate(app.operations) if op["operator"] == "Tj")
-        app.ops_tree.selection_set(app._operation_id(0, text_operation))
-        app.ops_tree.focus(app._operation_id(0, text_operation))
+        matrix_operation = next(index for index, op in enumerate(app.operations) if op["operator"] == "Tm")
+        app.ops_tree.selection_set(app._operation_id(0, matrix_operation))
+        app.ops_tree.focus(app._operation_id(0, matrix_operation))
         app.select_operation()
         app.tabs.select(app.content_tab)
         capture(app, "operation-map.png")
+        app.ops_tree.selection_set(app._operation_id(0, text_operation))
+        app.ops_tree.focus(app._operation_id(0, text_operation))
+        app.select_operation()
+        app.toggle_preview()
         capture(app, "decoded-bytes.png")
+        app.toggle_preview()
         app.tabs.select(app.resources_tab)
         app.font_combo.set("/F1")
         app.render_font("/F1")

@@ -568,6 +568,9 @@ class PdfExplorer(tk.Tk):
         self.save_button = ttk.Button(actions, text="Save All Edits", style="Accent.TButton", command=self.save_edited_copy)
         self.save_button.pack(side="left")
         self.save_button.state(["disabled"])
+        self.undo_button.pack_forget()
+        self.unused_button.pack_forget()
+        self.save_button.pack_forget()
 
         body = ttk.Panedwindow(self, orient="horizontal")
         body.pack(fill="both", expand=True, padx=14, pady=(10, 8))
@@ -734,6 +737,9 @@ class PdfExplorer(tk.Tk):
             self.undo_stack = []
             self.unsaved_edits = False
             self._clear_preview()
+            self.undo_button.pack(side="left", padx=(0, 8))
+            self.unused_button.pack(side="left", padx=(0, 8))
+            self.save_button.pack(side="left")
             self.unused_button.state(["!disabled"])
             self.undo_button.state(["disabled"])
             self.save_button.state(["disabled"])
