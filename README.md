@@ -4,7 +4,7 @@
 [![Latest release](https://img.shields.io/github/v/release/simondong1/openPdfEditor?display_name=tag)](https://github.com/simondong1/openPdfEditor/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**Edit what other PDF editors hide.** openPdfEditor lets you inspect and change the decoded bytes and operators that draw a page, with the live PDF preview beside them. [Download the latest Windows release](https://github.com/simondong1/openPdfEditor/releases/latest).
+**Edit what other PDF editors hide.** openPdfEditor lets you inspect and change the decoded bytes and operators that draw a page, with the live PDF preview beside them. [Download the latest Windows release](https://github.com/simondong1/openPdfEditor/releases/latest) or [download `openPdfEditor.exe` directly](https://github.com/simondong1/openPdfEditor/releases/latest/download/openPdfEditor.exe).
 
 | Edit | Inspect | Save |
 | --- | --- | --- |
@@ -56,12 +56,13 @@ This is a behavior comparison, not a promise that every PDF will have the same b
 
 ## Download first
 
-1. Open the [latest release](https://github.com/simondong1/openPdfEditor/releases/latest).
-2. Download `openPdfEditor.exe`.
-3. Double-click the executable.
-4. Click **Open PDF** and choose a document. The repository does not contain sample bank statements or user documents.
+1. Download [`openPdfEditor.exe`](https://github.com/simondong1/openPdfEditor/releases/latest/download/openPdfEditor.exe).
+2. Double-click it. It is a self-contained Windows GUI application and does not open a terminal window.
+3. Click **Open PDF** and choose a document. The repository does not contain sample bank statements or user documents.
 
-The release is a self-contained Windows build. Python and dependencies are not required. Windows may show SmartScreen for a new unsigned open-source executable; choose **More info → Run anyway** only if you downloaded the archive from this repository's Releases page.
+The [release page](https://github.com/simondong1/openPdfEditor/releases/latest) includes the version notes and the same executable as a downloadable asset.
+
+The release is a self-contained Windows build created with PyInstaller's GUI mode. Python and dependencies are not required. Windows may show SmartScreen for a new unsigned open-source executable; choose **More info → Run anyway** only if you downloaded the file from this repository's Releases page.
 
 ## See it in action
 
@@ -124,7 +125,7 @@ python -m pip install -r requirements-dev.txt
 pyinstaller --noconfirm --clean --onefile --windowed --name openPdfEditor pdf_explorer.py
 ```
 
-The executable is written to `dist\openPdfEditor.exe`. The tagged-release workflow performs this build automatically and attaches that single executable to the GitHub release.
+The executable is written to `dist\openPdfEditor.exe`. The tagged-release workflow performs this build automatically and attaches that single executable to the GitHub release. The release asset is the same one-file, no-terminal build linked above.
 
 ## Contributing
 
