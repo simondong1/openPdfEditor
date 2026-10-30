@@ -4,7 +4,7 @@
 [![Latest release](https://img.shields.io/github/v/release/simondong1/openPdfEditor?display_name=tag)](https://github.com/simondong1/openPdfEditor/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**Edit what other PDF editors hide.** openPdfEditor lets you inspect and change the decoded bytes and operators that draw a page, with the live PDF preview beside them.
+**Edit what other PDF editors hide.** openPdfEditor lets you inspect and change the decoded bytes and operators that draw a page, with the live PDF preview beside them. [Download the latest Windows release](https://github.com/simondong1/openPdfEditor/releases/latest).
 
 | Edit | Inspect | Save |
 | --- | --- | --- |
@@ -25,6 +25,21 @@
 | Best fit | Precise stream edits and PDF inspection | Document production and collaboration | Convenient one-off edits | Batch jobs and application integration |
 
 Rebuilding removes earlier incremental revisions from the output; it does not make edits undetectable. The changed content is still in the PDF and can be compared with an original.
+
+## Saved-file comparison
+
+| After one edit | openPdfEditor | Acrobat / PDF-XChange | Online editor | General PDF library |
+| --- | --- | --- | --- | --- |
+| File layout | One rebuilt PDF | Save-mode dependent; may append a revision | Provider-defined export | Library-defined serialization |
+| Old revision retained inside output | **No** | May remain when saved incrementally | Depends on provider | Depends on API and save mode |
+| Size behavior | Usually close to the source; exact size depends on filters and object serialization | Often grows when a revision is appended | Export-dependent | May grow or shrink after reserialization |
+| Edit history in PDF bytes | No appended revision chain | Incremental revisions may remain inspectable | Provider-dependent | Provider/library-dependent |
+| Unchanged objects | Copied into the rebuilt file | Existing bytes may remain in place | Provider-controlled | Often rewritten |
+| Original security setup | Preserved for supported encrypted inputs | Product-controlled | Provider-controlled | Library-controlled |
+
+This is a behavior comparison, not a promise that every PDF will have the same byte count. A rebuilt file can be larger or smaller than its source because stream filters, whitespace, object ordering, and length values affect serialization. The important distinction is that openPdfEditor writes one complete output instead of appending the previous revision to the end.
+
+**Why the size can change:** a one-byte decoded edit may change a compressed stream, its `/Length`, the xref offsets, and the trailer. An incremental save keeps the old bytes and appends new objects. A rebuild writes the current object set once, so it avoids retaining that old revision.
 
 ## Built for precise edits
 
