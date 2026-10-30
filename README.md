@@ -4,9 +4,32 @@
 [![Latest release](https://img.shields.io/github/v/release/simondong1/openPdfEditor?display_name=tag)](https://github.com/simondong1/openPdfEditor/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**openPdfEditor is a local Windows tool for seeing and editing the bytes that make up a PDF page.** It is designed for people who want to understand PDF construction: content operators, text matrices, resource aliases, Type 3 fonts, encodings, widths, filters, encryption, and cross-reference offsets.
+**openPdfEditor is the PDF editor for people who need control after the page is already “finished.”** Edit the actual decoded content stream: the text bytes, `Tm` coordinates, `Tf` font selections, `Tj` strings, resource aliases, and path operators. Preview the result beside the bytes, undo changes, and save a clean rebuilt PDF without an incremental-update trail or editor watermark.
 
-It is a teaching-oriented byte editor, not a replacement for Acrobat, PDF-XChange, or a general document layout application.
+Use it for precise PDF repair, document automation, reverse engineering, template maintenance, and workflows where changing one visible value should not mean handing the document to an online service or rebuilding it through a layout editor. Everything runs locally on Windows: no upload, account, or cloud copy. The original file remains untouched.
+
+### Why openPdfEditor
+
+Most PDF tools treat a page as a picture or a collection of invisible text boxes. openPdfEditor exposes the layer that actually makes the page: operators, bytes, fonts, widths, filters, encryption, object references, and xref offsets. When a number is wrong, change the number. When text is shifted, change its matrix. When a resource is unused, remove that resource deliberately. The preview confirms the rendered result before you save.
+
+For low-level PDF edits, this is the shortest path from **“I can see the wrong value”** to **“I changed the exact stream data that draws it.”**
+
+## Comparison
+
+| Capability | openPdfEditor | Acrobat / PDF-XChange | Online PDF editors | pypdf / scripting libraries |
+| --- | --- | --- | --- | --- |
+| Primary purpose | Direct, controlled PDF editing at the content-stream level | Page layout, forms, markup, signing, OCR | Convenient browser-based page edits | Programmatic PDF creation and transformation |
+| Where editing happens | Local decoded bytes and operators | High-level page/text abstractions | Uploaded copy on a vendor server | Python objects and generated serialization |
+| Edit `Tm` x/y, `Tf`, `Tj`, `TJ` directly | **Yes** | Usually hidden | No | Only with custom parser code |
+| See exact hex and decoded offsets | **Yes** | No | No | Not as an interactive workflow |
+| See resource aliases, font widths, `/ToUnicode`, Type 3 data | **Yes** | Limited | No | Requires manual inspection |
+| Upload required | **No** | No | **Usually yes** | No |
+| Incremental revision history in output | **No incremental update is created** | Save-mode dependent | Vendor-dependent | Library-dependent |
+| Original metadata/security objects | Preserved by the supported raw rebuild path | Tool-controlled | Vendor-controlled | Often reserialized |
+| Live page preview tied to the selected operator | **Yes** | Page preview, without byte mapping | Page preview, without byte mapping | No |
+| Best for | Exact repair, reverse engineering, private workflows | Polished document production | Fast one-off convenience edits | Batch pipelines and application integration |
+
+The writer rebuilds supported PDFs instead of appending an incremental revision, so the previous revision is not retained in the output. This does not make edits undetectable: the changed content remains part of the PDF and may be compared with an original copy.
 
 ## Download first
 
